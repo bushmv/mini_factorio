@@ -10,9 +10,9 @@ abstract class TransporterPart {
   boolean rightFree;
   int leftRes; // represents the resources on the left side 
   int rightRes; // represents the resources on the right side 
-  DrawableFlyweight df; // flyweight contains how each resource should be drawn 
+  DrawableTransporterPartFlyweight df; // flyweight contains how each resource should be drawn 
  
-  public TransporterPart(int posX, int posY, TransporterPart previous, int state, byte speed, DrawableFlyweightFactory factory) {
+  public TransporterPart(int posX, int posY, TransporterPart previous, int state, byte speed, DrawableTransporterPartFlyweight df) {
     this.posX = posX;
     this.posY = posY;
     this.previous = previous;
@@ -20,7 +20,7 @@ abstract class TransporterPart {
     this.speed = speed;
     this.leftFree = false;
     this.rightFree = false;
-    if (factory != null) this.df = factory.drawableFlyWeight();
+    this.df = df;
   }
   
   void redraw() {
