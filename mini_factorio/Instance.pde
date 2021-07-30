@@ -1,0 +1,5 @@
+interface Instance {
+ 
+  void run();
+  
+}
