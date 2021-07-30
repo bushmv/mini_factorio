@@ -20,7 +20,7 @@ abstract class TransporterPart {
     this.speed = speed;
     this.leftFree = false;
     this.rightFree = false;
-    this.df = factory.drawableFlyWeight();
+    if (factory != null) this.df = factory.drawableFlyWeight();
   }
   
   void redraw() {
