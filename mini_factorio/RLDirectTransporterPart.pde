@@ -9,7 +9,6 @@ class RLDirectTransporterPart extends DirectTransporterPart {
     df.drawRLTransporterPart(posX, posY);
     
     //left
-    
     if ((state & 8) == 8) {
       temp = (state & 7);
       df.draw(posX - temp * CONSTANTS.DELTA, posY + CONSTANTS.BLOCK_LEN / 2, (this.leftRes & 255));
@@ -31,7 +30,6 @@ class RLDirectTransporterPart extends DirectTransporterPart {
     } 
     
     // right
-    
     if ((state & 524288) == 524288) {
       temp = (state & 458752) >> 16;
       df.draw(posX - temp * CONSTANTS.DELTA, posY + CONSTANTS.MATERIAL_LEN, (this.rightRes & 255));

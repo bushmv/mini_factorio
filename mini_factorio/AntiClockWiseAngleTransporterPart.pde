@@ -92,10 +92,11 @@ abstract class AntiClockWiseAngleTransporterPart extends TransporterPart {
   public void insertLeftItemInEnd() { this.state += 2048; }
   public void insertRightItemInEnd() { this.state += -2147483648; }
   
-  //
+  
   public boolean leftFree() { return (state & 2184) != 2184; }
   public boolean rightFree() { return (state & -2004320256) != -2004320256; }
   
+  // res
   public int firstLeftRes() { return (leftRes & 255); }
   public int firstRightRes() { return (leftRes & -16777216) >> 24; }
   
