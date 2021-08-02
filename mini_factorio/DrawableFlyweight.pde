@@ -3,10 +3,24 @@
 public interface DrawableTransporterPartFlyweight {
  
   void draw(float x, float y, int resType);
+  
+  // direct transporter part
   void drawLRTransporterPart(float x, float y);
   void drawRLTransporterPart(float x, float y);
   void drawUDTransporterPart(float x, float y);
   void drawDUTransporterPart(float x, float y);
+  
+  // clockwise transporter part
+  void drawLDTransporterPart(float x, float y);
+  void drawULTransporterPart(float x, float y);
+  void drawRUTransporterPart(float x, float y);
+  void drawDRTransporterPart(float x, float y);
+  
+  // anticlockwise transporter part
+  void drawDLTransporterPart(float x, float y);
+  void drawRDTransporterPart(float x, float y);
+  void drawURTransporterPart(float x, float y);
+  void drawLUTransporterPart(float x, float y);
   
 }
 
@@ -28,17 +42,22 @@ public class SimpleDrawableTransporterPartFlyweight implements DrawableTransport
     resources.get(resType - 1).draw(x, y);
   }
   
-  void drawLRTransporterPart(float x, float y) {
-    rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN);
-  }
-  void drawRLTransporterPart(float x, float y) {
-    rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN);
-  }
-  void drawUDTransporterPart(float x, float y) {
-    rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN);
-  }
-  void drawDUTransporterPart(float x, float y) {
-    rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN);
-  }
+  // direct transporter part
+  void drawLRTransporterPart(float x, float y) { rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN); }
+  void drawRLTransporterPart(float x, float y) { rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN); }
+  void drawUDTransporterPart(float x, float y) { rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN); }
+  void drawDUTransporterPart(float x, float y) { rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN); }
+  
+  // clockwise transporter part
+  void drawLDTransporterPart(float x, float y) { rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN); }
+  void drawULTransporterPart(float x, float y) { rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN); } 
+  void drawRUTransporterPart(float x, float y) { rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN); }
+  void drawDRTransporterPart(float x, float y) { rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN); }
+  
+  // anticlockwise transporter part
+  void drawDLTransporterPart(float x, float y) { rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN); }
+  void drawRDTransporterPart(float x, float y) { rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN); }
+  void drawURTransporterPart(float x, float y) { rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN); }
+  void drawLUTransporterPart(float x, float y) { rect(x, y, CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN); }
   
 }
