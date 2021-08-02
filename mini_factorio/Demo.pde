@@ -6,10 +6,24 @@ class Demo implements Instance {
   public Demo() {
     df = new SimpleDrawableTransporterPartFlyweight();
     
+    // direct transporter part
     //demoFragment = new LeftToRightDirectTransporterDemo(df);
     //demoFragment = new RightToLeftDirectTransporterDemo(df);
-    //demoFragment = new UpToDownDirectTransporterDemo(df);
-    demoFragment = new DownToUpDirectTransporterDemo(df);
+    //demoFragment = new UpToDownDirectTransporterDemo(df); 
+    //demoFragment = new DownToUpDirectTransporterDemo(df);
+    
+    // clockwise angle transporter part
+    //demoFragment = new LDAngleTransporterPartDemo(df);
+    //demoFragment = new ULAngleTransporterPartDemo(df);
+    //demoFragment = new RUAngleTransporterPartDemo(df);
+    //demoFragment = new DRAngleTransporterPartDemo(df);
+    //demoFragment = new ClockWiseCirclerFragment(df);
+    
+    // anticlockwise angle transporter part
+    //demoFragment = new DLAngleTransporterPartDemo(df);
+    //demoFragment = new RDAngleTransporterPartDemo(df);
+    //demoFragment = new URAngleTransporterPartDemo(df);
+    demoFragment = new LUAngleTransporterPartDemo(df);
   }
   
   public void run() {
@@ -120,6 +134,172 @@ class DownToUpDirectTransporterDemo implements DemoFragment {
   
   void redraw() {
     part1.redraw();
+  }
+  
+}
+
+class LDAngleTransporterPartDemo implements DemoFragment {
+  private TransporterPart part1;
+  private TransporterPart part2;
+  private TransporterPart part3;
+  
+  public LDAngleTransporterPartDemo(DrawableTransporterPartFlyweight df) {
+    part1 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN, null, 142639112, (byte) 1, df);
+    part1.leftRes = 16777218; part1.rightRes = 66048;
+    part2 = new LDAngleTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN, part1, 0, (byte) 1, df);
+    part3 = new UDDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, part2, 0, (byte) 1, df);
+  }
+  
+  void redraw() {
+    part3.redraw();
+  }
+  
+}
+
+class ULAngleTransporterPartDemo implements DemoFragment {
+  private TransporterPart part1;
+  private TransporterPart part2;
+  private TransporterPart part3;
+  
+  public ULAngleTransporterPartDemo(DrawableTransporterPartFlyweight df) {
+    part1 = new UDDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN, null, 142639112, (byte) 1, df);
+    part1.leftRes = 16777218; part1.rightRes = 66048;
+    part2 = new ULAngleTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, part1, 0, (byte) 1, df);
+    part3 = new RLDirectTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN * 2, part2, 0, (byte) 1, df);
+  }
+  
+  void redraw() {
+    part3.redraw();
+  }
+  
+}
+
+class RUAngleTransporterPartDemo implements DemoFragment {
+  private TransporterPart part1;
+  private TransporterPart part2;
+  private TransporterPart part3;
+  
+  public RUAngleTransporterPartDemo(DrawableTransporterPartFlyweight df) {
+    part1 = new RLDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, null, 142639112, (byte) 1, df);
+    part1.leftRes = 16777218; part1.rightRes = 66048;
+    part2 = new RUAngleTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN * 2, part1, 0, (byte) 1, df);
+    part3 = new DUDirectTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN, part2, 0, (byte) 1, df);
+  }
+  
+  void redraw() {
+    part3.redraw();
+  }
+  
+}
+
+class DRAngleTransporterPartDemo implements DemoFragment {
+  private TransporterPart part1;
+  private TransporterPart part2;
+  private TransporterPart part3;
+  
+  public DRAngleTransporterPartDemo(DrawableTransporterPartFlyweight df) {
+    part1 = new DUDirectTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN * 2, null, 142639112, (byte) 1, df);
+    part1.leftRes = 16777218; part1.rightRes = 66048;
+    part2 = new DRAngleTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN, part1, 0, (byte) 1, df);
+    part3 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN, part2, 0, (byte) 1, df);
+  }
+  
+  void redraw() {
+    part3.redraw();
+  }
+  
+}
+
+class ClockWiseCirclerFragment implements DemoFragment {
+  private TransporterPart part1;
+  private TransporterPart part2;
+  private TransporterPart part3;
+  private TransporterPart part4;
+  
+  public ClockWiseCirclerFragment(DrawableTransporterPartFlyweight df) {
+    part1 = new LDAngleTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN, null, -2146959360, (byte) 1, df);
+    part1.leftRes = 0; part1.rightRes = 50331649;
+    part2 = new ULAngleTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, part1, 0, (byte) 1, df);
+    part3 = new RUAngleTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN * 2, part2, 0, (byte) 1, df);
+    part4 = new DRAngleTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN, part3, 0, (byte) 1, df);
+    part1.previous = part4;
+    part1.isStop = true;
+    //part1.previous = part4;
+  }
+  
+  void redraw() {
+    part4.redraw();
+  }
+}
+  
+class DLAngleTransporterPartDemo implements DemoFragment {
+  private TransporterPart part1;
+  private TransporterPart part2;
+  private TransporterPart part3;
+  
+  public DLAngleTransporterPartDemo(DrawableTransporterPartFlyweight df) {
+    part1 = new DUDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, null, -2147450880, (byte) 1, df);
+    part1.leftRes = 16777216; part1.rightRes = 33554432;
+    part2 = new DLAngleTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN, part1, 0, (byte) 1, df);
+    part3 = new RLDirectTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN, part2, 0, (byte) 1, df);
+  }
+  
+  void redraw() {
+    part3.redraw();
+  }
+  
+}
+
+class RDAngleTransporterPartDemo implements DemoFragment {
+  private TransporterPart part1;
+  private TransporterPart part2;
+  private TransporterPart part3;
+  
+  public RDAngleTransporterPartDemo(DrawableTransporterPartFlyweight df) {
+    part1 = new RLDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN, null, -2147450880, (byte) 1, df);
+    part1.leftRes = 16777216; part1.rightRes = 33554432;
+    part2 = new RDAngleTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN, part1, 0, (byte) 1, df);
+    part3 = new UDDirectTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN * 2, part2, 0, (byte) 1, df);
+  }
+  
+  void redraw() {
+    part3.redraw();
+  }
+  
+}
+
+class URAngleTransporterPartDemo implements DemoFragment {
+  private TransporterPart part1;
+  private TransporterPart part2;
+  private TransporterPart part3;
+  
+  public URAngleTransporterPartDemo(DrawableTransporterPartFlyweight df) {
+    part1 = new UDDirectTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN, null, -2147450880, (byte) 1, df);
+    part1.leftRes = 16777216; part1.rightRes = 33554432;
+    part2 = new URAngleTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN * 2, part1, 0, (byte) 1, df);
+    part3 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, part2, 0, (byte) 1, df);
+  }
+  
+  void redraw() {
+    part3.redraw();
+  }
+  
+}
+
+class LUAngleTransporterPartDemo implements DemoFragment {
+  private TransporterPart part1;
+  private TransporterPart part2;
+  private TransporterPart part3;
+  
+  public LUAngleTransporterPartDemo(DrawableTransporterPartFlyweight df) {
+    part1 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN * 2, null, -2147450880, (byte) 1, df);
+    part1.leftRes = 16777216; part1.rightRes = 33554432;
+    part2 = new LUAngleTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, part1, 0, (byte) 1, df);
+    part3 = new DUDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN, part2, 0, (byte) 1, df);
+  }
+  
+  void redraw() {
+    part3.redraw();
   }
   
 }
