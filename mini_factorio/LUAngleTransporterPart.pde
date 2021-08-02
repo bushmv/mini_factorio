@@ -4,10 +4,10 @@ class LUAngleTransporterPart extends AntiClockWiseAngleTransporterPart {
     super(posX, posY, previous, state, speed, df); 
   }
   
-  void draw() {
+  void drawPart() {  df.drawLUTransporterPart(posX, posY); }
+  
+  void drawItems() {
    
-    df.drawLUTransporterPart(posX, posY);
-    
     // left
     if ((state & 8) == 8) {
       temp = state & 7;

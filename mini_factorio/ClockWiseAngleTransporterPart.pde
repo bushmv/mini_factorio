@@ -75,7 +75,8 @@ abstract class ClockWiseAngleTransporterPart extends TransporterPart {
   }
   
   
-  public abstract void draw();
+  public abstract void drawPart();
+  public abstract void drawItems();
   
   public void removeFirstLeftItem() { this.state -= 15; }
   public void removeFirstRightItem() {this.state -= 15728640; }

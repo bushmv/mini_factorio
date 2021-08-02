@@ -4,9 +4,9 @@ class ULAngleTransporterPart extends ClockWiseAngleTransporterPart {
     super(posX, posY, previous, state, speed, df); 
   }
   
-  void draw() {
-   
-    df.drawULTransporterPart(posX, posY);
+  void drawPart() { df.drawULTransporterPart(posX, posY); }
+  
+  void drawItems() {
     
     // left
     if ((state & 8) == 8) {

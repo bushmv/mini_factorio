@@ -440,7 +440,8 @@ class TestDirectTransporterPart extends DirectTransporterPart {
   }
   
   // empty, don't need draw when test
-  public void draw() {}
+  public void drawItems() {}
+  public void drawPart() {}
   
 }
 
@@ -450,7 +451,8 @@ class TestClockWiseAngleTransporterPart extends ClockWiseAngleTransporterPart {
   }
   
   // empty, don't need draw when test
-  public void draw() {};
+  public void drawItems() {}
+  public void drawPart() {}
 }
 
 class TestAntiClockWiseAngleTransporterPart extends AntiClockWiseAngleTransporterPart {
@@ -459,5 +461,6 @@ class TestAntiClockWiseAngleTransporterPart extends AntiClockWiseAngleTransporte
   }
   
   // empty, don't need draw when test
-  public void draw() {};
+  public void drawItems() {}
+  public void drawPart() {}
 }

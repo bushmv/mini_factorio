@@ -25,15 +25,22 @@ abstract class TransporterPart {
     this.df = df;
   }
   
+  
+  void drawParts() {
+    drawPart();
+    if (previous != null) previous.drawParts();
+  }
+  
   void redraw() {
      update();
-     draw();
+     drawItems();
      if (previous != null) previous.redraw();
   }
   
   
   public abstract void update();
-  public abstract void draw();
+  abstract void drawPart();
+  public abstract void drawItems();
   
   // direct and angle transporter parts contains different first element, therefore this methods
   // must be overrided in each of them

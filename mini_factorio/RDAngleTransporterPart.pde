@@ -4,10 +4,10 @@ class RDAngleTransporterPart extends AntiClockWiseAngleTransporterPart {
     super(posX, posY, previous, state, speed, df); 
   }
   
-  void draw() {
+  void drawPart() { df.drawDRTransporterPart(posX, posY); }
+  
+  void drawItems() {
    
-    df.drawDRTransporterPart(posX, posY);
-    
     // left
     if ((state & 8) == 8) {
       temp = state & 7;

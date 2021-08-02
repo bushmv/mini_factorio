@@ -4,10 +4,10 @@ class RUAngleTransporterPart extends ClockWiseAngleTransporterPart {
     super(posX, posY, previous, state, speed, df); 
   }
   
-  void draw() {
+  void drawPart() { df.drawRUTransporterPart(posX, posY); }
+  
+  void drawItems() {
    
-    df.drawRUTransporterPart(posX, posY);
-    
     // left
     if ((state & 8) == 8) {
       temp = state & 7;

@@ -4,10 +4,10 @@ class URAngleTransporterPart extends AntiClockWiseAngleTransporterPart {
     super(posX, posY, previous, state, speed, df); 
   }
   
-  void draw() {
+  void drawPart() { df.drawURTransporterPart(posX, posY); }
+  
+  void drawItems() {
    
-    df.drawURTransporterPart(posX, posY);
-    
     // left
     if ((state & 8) == 8) {
       temp = state & 7;

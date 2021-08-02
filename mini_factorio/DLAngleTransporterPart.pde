@@ -4,9 +4,9 @@ class DLAngleTransporterPart extends AntiClockWiseAngleTransporterPart {
     super(posX, posY, previous, state, speed, df); 
   }
   
-  void draw() {
-   
-    df.drawDLTransporterPart(posX, posY);
+  void drawPart() { df.drawDLTransporterPart(posX, posY); if (previous != null) previous.drawPart(); }
+  
+  void drawItems() {
     
     // left
     if ((state & 8) == 8) {

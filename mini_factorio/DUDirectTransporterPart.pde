@@ -4,9 +4,9 @@ class DUDirectTransporterPart extends DirectTransporterPart {
     super(posX, posY, previous, state, speed, df); 
   }
   
-  void draw() {
-    
-    df.drawDUTransporterPart(posX, posY);
+  void drawPart() { df.drawDUTransporterPart(posX, posY); }
+  
+  void drawItems() {
     
     // left
     if ((state & 8) == 8) {

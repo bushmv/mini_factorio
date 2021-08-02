@@ -5,9 +5,9 @@ class UDDirectTransporterPart extends DirectTransporterPart {
   }
   
   
-  void draw() {
-    
-    df.drawUDTransporterPart(posX, posY);
+  void drawPart() { df.drawUDTransporterPart(posX, posY); }
+  
+  void drawItems() {
     
     // right
     if ((state & 8) == 8) {
