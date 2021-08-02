@@ -12,6 +12,8 @@ abstract class TransporterPart {
   int rightRes; // represents the resources on the right side 
   DrawableTransporterPartFlyweight df; // flyweight contains how each resource should be drawn 
  
+  boolean isStop = false;
+ 
   public TransporterPart(int posX, int posY, TransporterPart previous, int state, byte speed, DrawableTransporterPartFlyweight df) {
     this.posX = posX;
     this.posY = posY;
@@ -54,4 +56,11 @@ abstract class TransporterPart {
   public abstract boolean leftFree();
   public abstract boolean rightFree();
   
+  // res
+  
+  public abstract int firstLeftRes();
+  public abstract int firstRightRes();
+  
+  public abstract void removeFirstLeftRes();
+  public abstract void removeFirstRightRes();
 }

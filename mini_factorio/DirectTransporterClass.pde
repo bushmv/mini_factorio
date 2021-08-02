@@ -14,7 +14,7 @@ abstract class DirectTransporterPart extends TransporterPart {
    
     if ((frameCount % speed) == 0) {
       
-        // left first 3
+        // left
         
         if ((state & 128) == 128 && (leftFree || (state & 8) != 8)) {       
            temp = (state & 112) >> 4; 
@@ -34,7 +34,8 @@ abstract class DirectTransporterPart extends TransporterPart {
            else { state -= 59392; leftRes = (leftRes & ~ -16777216) + ((leftRes & -16777216) >> 8); }
         }
         
-        // right first 3
+        // right
+        
         if ((state & 8388608) == 8388608 && (rightFree || ((state & 524288) != 524288))) {       
            temp = (state & 7340032) >> 20;
            if (temp < 7) { state += 1048576; }
@@ -56,21 +57,21 @@ abstract class DirectTransporterPart extends TransporterPart {
     
     // left last one
     if (previous != null && (frameCount % previous.speed) == 0) { 
-      if ( (leftFree || (state & 34952) != 34952) && previous.hasLeftFirstItem() ) { 
+      if ( (leftFree || leftFree()) && previous.hasLeftFirstItem() ) { 
          temp = previous.leftFirstItemState();
-         if (temp < 7) { previous.moveFirstLeftItem();}
-         else { previous.removeFirstLeftItem(); insertLeftItemInEnd(); 
-         leftRes = (leftRes & ~ -16777216) + ((previous.leftRes & 255) << 24); previous.leftRes = previous.leftRes & ~255; }
+         if (temp < 7) { previous.moveFirstLeftItem(); }
+         else { previous.removeFirstLeftItem(); insertLeftItemInEnd();
+         leftRes = (leftRes & ~ -16777216) + ((previous.firstLeftRes()) << 24); previous.removeFirstLeftRes(); } 
       } 
     }
     
     //right last one
     if (previous != null && (frameCount % previous.speed) == 0) { 
-      if ( (rightFree || (state & -2004353024) != -2004353024) && previous.hasRightFirstItem() ) {
+      if ( (rightFree || rightFree()) && previous.hasRightFirstItem() ) {
          temp = previous.rightFirstItemState(); 
          if (temp < 7) { previous.moveFirstRightItem();  } 
          else { previous.removeFirstRightItem(); insertRightItemInEnd();
-         rightRes = (rightRes & ~ -16777216) + ((previous.rightRes & 255) << 24); previous.rightRes = previous.rightRes & ~255; }
+         rightRes = (rightRes & ~ -16777216) + ((previous.firstRightRes()) << 24); previous.removeFirstRightRes(); }
       } 
     }
     
@@ -100,5 +101,13 @@ abstract class DirectTransporterPart extends TransporterPart {
   
   public boolean leftFree() { return (state & 34952) != 34952; }
   public boolean rightFree() { return (state & -2004353024) != -2004353024; }
+  
+
+  // res
+  public int firstLeftRes() { return (leftRes & 255); }
+  public int firstRightRes() { return (rightRes & 255); }
+  
+  public void removeFirstLeftRes() { leftRes = leftRes & ~255; }
+  public void removeFirstRightRes() { rightRes = rightRes & ~255; }
   
 }

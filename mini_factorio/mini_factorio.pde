@@ -11,7 +11,8 @@ void setup() {
  // - APP - to start app
  // - TEST - to start unit tests
  // - DEMO - to start short sketches show part of app
- instance = appFactory.config(AppConfigType.DEMO);
+ instance = appFactory.config(AppConfigType.TEST); 
+
 }
 
 void draw() {
