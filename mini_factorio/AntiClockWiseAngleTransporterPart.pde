@@ -5,7 +5,7 @@ abstract class AntiClockWiseAngleTransporterPart extends TransporterPart {
   }
   
   
-  public void update() {
+  public void updateCurrent() {
     if ((frameCount % speed) == 0) {
       
       //left
@@ -75,11 +75,12 @@ abstract class AntiClockWiseAngleTransporterPart extends TransporterPart {
     }
   }
   
-  public abstract void drawPart();
-  public abstract void drawItems();
+
+  public abstract void drawCurrentPart();
+  public abstract void drawCurrentItems();
   
-  public void removeFirstLeftItem() { this.state -= 15; }
-  public void removeFirstRightItem() {this.state -= 61440; }
+  public void removeFirstLeftItem() { this.state &= ~15; }
+  public void removeFirstRightItem() {this.state &= ~61440; }
   
   public void moveFirstLeftItem() { this.state += 1; }
   public void moveFirstRightItem() { this.state += 4096; }
@@ -92,7 +93,6 @@ abstract class AntiClockWiseAngleTransporterPart extends TransporterPart {
   
   public void insertLeftItemInEnd() { this.state += 2048; }
   public void insertRightItemInEnd() { this.state += -2147483648; }
-  
   
   public boolean leftFree() { return (state & 2184) != 2184; }
   public boolean rightFree() { return (state & -2004320256) != -2004320256; }

@@ -10,7 +10,7 @@ abstract class DirectTransporterPart extends TransporterPart {
     super(posX, posY, previous, state, speed, df); 
   }
   
-  void update() {
+  void updateCurrent() {
    
     if ((frameCount % speed) == 0) {
       
@@ -79,14 +79,13 @@ abstract class DirectTransporterPart extends TransporterPart {
      previous.leftFree = leftFree || leftFree();
      previous.rightFree = rightFree || rightFree();
     }
-    
   }
   
-  public abstract void drawPart();
-  public abstract void drawItems();
+  public abstract void drawCurrentPart();
+  public abstract void drawCurrentItems();
   
-  public void removeFirstLeftItem() { this.state -= 15; }
-  public void removeFirstRightItem() {this.state -= 983040; }
+  public void removeFirstLeftItem() { this.state &= ~15; }
+  public void removeFirstRightItem() {this.state &= ~983040; }
   
   public void moveFirstLeftItem() { this.state += 1; }
   public void moveFirstRightItem() { this.state += 65536; }

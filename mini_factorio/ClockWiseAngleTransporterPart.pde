@@ -4,7 +4,7 @@ abstract class ClockWiseAngleTransporterPart extends TransporterPart {
     super(posX, posY, previous, state, speed, df); 
   }
   
-  public void update() {
+  public void updateCurrent() {
     if ((frameCount % speed) == 0) {
       
       //left
@@ -75,11 +75,11 @@ abstract class ClockWiseAngleTransporterPart extends TransporterPart {
   }
   
   
-  public abstract void drawPart();
-  public abstract void drawItems();
+  public abstract void drawCurrentPart();
+  public abstract void drawCurrentItems();
   
-  public void removeFirstLeftItem() { this.state -= 15; }
-  public void removeFirstRightItem() {this.state -= 15728640; }
+  public void removeFirstLeftItem() { this.state &= ~15; }
+  public void removeFirstRightItem() {this.state &= ~15728640; }
   
   public void moveFirstLeftItem() { this.state += 1; }
   public void moveFirstRightItem() { this.state += 1048576; }
@@ -96,12 +96,12 @@ abstract class ClockWiseAngleTransporterPart extends TransporterPart {
   public boolean leftFree() { return (state & 559240) != 559240; }
   public boolean rightFree() { return (state & -2004877312) != -2004877312; }
   
-  
   //res
   public int firstLeftRes() { return (leftRes & 255); }
   public int firstRightRes() { return (rightRes & 65280) >> 8; }
   
   public void removeFirstLeftRes() { leftRes = leftRes & ~255; }
   public void removeFirstRightRes() { rightRes = rightRes & ~65280; }
+  
 
 }
