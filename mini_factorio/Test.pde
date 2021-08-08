@@ -35,6 +35,8 @@ class Test implements Instance {
     //unit tests for transporter parts combination
     println("\n\n\n --- unit tests for transporter parts combination ---");
     ClockwiseAnticlockwiseDirectTransporterParts();
+    
+    
   }
   
   
@@ -107,7 +109,7 @@ class Test implements Instance {
     second.leftRes = 196608; second.rightRes = 67108864;
     
     for (int i = 0; i < 8 * 3 * 2; i++) {
-       second.redraw();
+       second.update();
     }
 
     println("\t directTransporterPartShouldMoveItemsToNextTransporterPart test:");
@@ -127,7 +129,7 @@ class Test implements Instance {
     second.leftRes = 0; second.rightRes = 0;
     
     for (int i = 0; i < 8 * 3 * 2; i++) {
-       second.redraw();
+       second.update();
     }
     
     println("\t onlyLeftFulledDirectTransporterPartShouldMoveItems test:");
@@ -147,7 +149,7 @@ class Test implements Instance {
     second.leftRes = 0; second.rightRes = 0;
     
     for (int i = 0; i < 8 * 3 * 2; i++) { 
-       second.redraw();
+       second.update();
     }
     
     println("\t onlyRightFulledDirectTransporterPartShouldMoveItems test:");
@@ -230,7 +232,7 @@ class Test implements Instance {
     second.leftRes = 50331648; second.rightRes = 67108864;
     
     for (int i = 0; i < 8 * 5 * 2; i++) { 
-       second.redraw();
+       second.update();
     }
 
     println("\t ClockWisetransporterPartShouldMoveItemsToNextClockWiseTransporterPart test:");
@@ -250,7 +252,7 @@ class Test implements Instance {
     second.leftRes = 0; second.rightRes = 0;
     
     for (int i = 0; i < 8 * 4 * 2; i++) { 
-       second.redraw();
+       second.update();
     }
     
     println("\t onlyLeftFulledClockWiseTransporterPartShouldMoveItems test:");
@@ -271,7 +273,7 @@ class Test implements Instance {
     second.leftRes = 0; second.rightRes = 0;
     
     for (int i = 0; i < 8 * 3 * 2; i++) { 
-       second.redraw();
+       second.update();
     }
     
     println("\t onlyRightFulledClockWiseTransporterPartShouldMoveItems test:");
@@ -355,7 +357,7 @@ class Test implements Instance {
     second.leftRes = 131072; second.rightRes = 512;
     
     for (int i = 0; i < 8 * 5 * 2; i++) { 
-       second.redraw();
+       second.update();
     }
     
     println("\t AntiClockWiseTransporterPartShouldMoveItemsToNextAntiClockWiseTransporterPart test:");
@@ -375,7 +377,7 @@ class Test implements Instance {
     second.leftRes = 0; second.rightRes = 0;
     
     for (int i = 0; i < 8 * 4 * 2; i++) { 
-       second.redraw();
+       second.update();
     }
     
     println("\t onlyLeftFulledAntiClockWiseTransporterPartShouldMoveItems test:");
@@ -396,12 +398,12 @@ class Test implements Instance {
     second.leftRes = 0; second.rightRes = 0;
     
     for (int i = 0; i < 8 * 5 * 2; i++) {
-       second.redraw();
+       second.update();
     }
     
     println("\t onlyRightFulledAntiClockWiseTransporterPartShouldMoveItems test:");
     if (second.state != -2004320256) throw new RuntimeException("test failed, second.state = " + second.state + ", but must be -2004320256");
-    else if (first.state != 0) throw new RuntimeException("test  failed, first.state = " + first.state + ", but must be 0");
+    else if (first.state != 0) throw new RuntimeException("test failed, first.state = " + first.state + ", but must be 0");
     else if (second.leftRes != 16777216) throw new RuntimeException("test failed, second.leftRes = " + second.leftRes + ", but must be 16777216");
     else if (second.rightRes != 84148994) throw new RuntimeException("test failed, second.rightRes = " + second.rightRes + ", but must be 84148994");
     else if (first.leftRes != 0) throw new RuntimeException("test failed, first.leftRes = " + first.leftRes + ", but must be 0");
@@ -422,15 +424,16 @@ class Test implements Instance {
     third.leftRes = 0; third.rightRes = 0;
 
     for (int i = 0; i < 8 * 5 * 3; i++) {
-       third.redraw();
+       third.update();
     }
     
     println("\t ClockwiseAnticlockwiseDirectTransporterParts test:");
-    if (third.state != 8913032) throw new RuntimeException("test failed, third.state = " + third.state + ", but must be 8913032");
-    else if (third.leftRes != 258) throw new RuntimeException("test  failed, third.leftRes = " + third.leftRes + ", but must be 258");
-    else if (third.rightRes != 258) throw new RuntimeException("test  failed, third.rightRes = " + third.rightRes + ", but must be 258");
+    if (third.state != 8913032) throw new RuntimeException("testfailed, third.state = " + third.state + ", but must be 8913032");
+    else if (third.leftRes != 258) throw new RuntimeException("test failed, third.leftRes = " + third.leftRes + ", but must be 258");
+    else if (third.rightRes != 258) throw new RuntimeException("test failed, third.rightRes = " + third.rightRes + ", but must be 258");
     else System.out.println(" + test successfull passed");
   }
+  
 }
 
 class TestDirectTransporterPart extends DirectTransporterPart {
@@ -440,8 +443,8 @@ class TestDirectTransporterPart extends DirectTransporterPart {
   }
   
   // empty, don't need draw when test
-  public void drawItems() {}
-  public void drawPart() {}
+  public void drawCurrentItems() {}
+  public void drawCurrentPart() {}
   
 }
 
@@ -451,8 +454,8 @@ class TestClockWiseAngleTransporterPart extends ClockWiseAngleTransporterPart {
   }
   
   // empty, don't need draw when test
-  public void drawItems() {}
-  public void drawPart() {}
+  public void drawCurrentItems() {}
+  public void drawCurrentPart() {}
 }
 
 class TestAntiClockWiseAngleTransporterPart extends AntiClockWiseAngleTransporterPart {
@@ -461,6 +464,6 @@ class TestAntiClockWiseAngleTransporterPart extends AntiClockWiseAngleTransporte
   }
   
   // empty, don't need draw when test
-  public void drawItems() {}
-  public void drawPart() {}
+  public void drawCurrentItems() {}
+  public void drawCurrentPart() {}
 }
