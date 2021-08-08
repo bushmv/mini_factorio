@@ -24,6 +24,9 @@ class Demo implements Instance {
     //demoFragment = new RDAngleTransporterPartDemo(df);
     //demoFragment = new URAngleTransporterPartDemo(df);
     //demoFragment = new LUAngleTransporterPartDemo(df); 
+    
+    // splitter demo
+    demoFragment = new SplitterDemo(df);
   }
   
   public void run() {
@@ -327,4 +330,35 @@ class LUAngleTransporterPartDemo implements DemoFragment {
     part3.drawItems();
   }
   
+}
+
+class SplitterDemo implements DemoFragment {
+ 
+  TransporterPart pr;
+  DirectTransporterPart f;
+  DirectTransporterPart s;
+  Splitter sp;
+  
+  public SplitterDemo(DrawableTransporterPartFlyweight df) {
+    pr = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN, null, -2139092984, (byte) 1, df);
+    pr.leftRes = 131073; pr.rightRes = 33554688;
+    f = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN, null, 0, (byte) 1, df);
+    s = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, null, 0, (byte) 1, df);
+    sp = new LRSplitter(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN, pr, f, s, new SimpleDrawableSplitterFlyweight());
+  }
+  
+  void redraw() {
+    f.drawParts();
+    s.drawParts();
+    sp.drawPreviousParts();
+    
+    f.update();
+    s.update();
+    sp.update();
+    
+    f.drawItems();
+    s.drawItems();
+    sp.drawPreviousItems();
+    
+  }
 }
