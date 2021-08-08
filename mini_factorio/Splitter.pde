@@ -1,12 +1,12 @@
-class Splitter {
+abstract class Splitter {
  
   private final DirectTransporterPart first;
   private final DirectTransporterPart second;
   private final TransporterPart previous;
-  private int posX;
-  private int posY;
+  protected int posX;
+  protected int posY;
   private boolean trigger = true;  
-  private DrawableSplitterFlyweight df;
+  DrawableSplitterFlyweight df;
   
   public Splitter(int posX, int posY, TransporterPart previous, DirectTransporterPart first, DirectTransporterPart second, DrawableSplitterFlyweight df) {
     this.posX = posX;
@@ -88,12 +88,14 @@ class Splitter {
     }
   }
   
-  void drawSplitterPart() {
-    df.drawLRSplitter(posX, posY);
+  abstract void drawSplitterPart();
+  
+  void drawPreviousParts() {
+    drawSplitterPart();
     previous.drawParts();
   }
   
-  void draw() {
+  void drawPreviousItems() {
    if (previous != null) { previous.drawItems(); }
   }
   
