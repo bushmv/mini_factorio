@@ -13,7 +13,7 @@ class Demo implements Instance {
     //demoFragment = new DownToUpDirectTransporterDemo(df);
     
     // clockwise angle transporter part
-    demoFragment = new LDAngleTransporterPartDemo(df);
+    //demoFragment = new LDAngleTransporterPartDemo(df);
     //demoFragment = new ULAngleTransporterPartDemo(df);
     //demoFragment = new RUAngleTransporterPartDemo(df);
     //demoFragment = new DRAngleTransporterPartDemo(df);
@@ -23,7 +23,7 @@ class Demo implements Instance {
     //demoFragment = new DLAngleTransporterPartDemo(df);
     //demoFragment = new RDAngleTransporterPartDemo(df);
     //demoFragment = new URAngleTransporterPartDemo(df);
-    //demoFragment = new LUAngleTransporterPartDemo(df);
+    //demoFragment = new LUAngleTransporterPartDemo(df); 
   }
   
   public void run() {
@@ -56,8 +56,9 @@ class LeftToRightDirectTransporterDemo implements DemoFragment {
   }
   
   void redraw() {
-    part3.drawParts();
-    part5.redraw();
+    part5.update();
+    part5.drawParts();
+    part5.drawItems();
   }
   
 }
@@ -83,8 +84,9 @@ class RightToLeftDirectTransporterDemo implements DemoFragment {
   }
   
   void redraw() {
-    part3.drawParts();
-    part1.redraw();
+    part1.update();
+    part1.drawParts();
+    part1.drawItems();
   }
   
 }
@@ -109,8 +111,9 @@ class UpToDownDirectTransporterDemo implements DemoFragment {
   }
   
   void redraw() {
-    part3.drawParts();
-    part5.redraw();
+    part5.update();
+    part5.drawParts();
+    part5.drawItems();
   }
   
 }
@@ -136,8 +139,9 @@ class DownToUpDirectTransporterDemo implements DemoFragment {
   }
   
   void redraw() {
-    part3.drawParts();
-    part1.redraw();
+    part1.update();
+    part1.drawParts();
+    part1.drawItems();
   }
   
 }
@@ -155,8 +159,9 @@ class LDAngleTransporterPartDemo implements DemoFragment {
   }
   
   void redraw() {
+    part3.update();
     part3.drawParts();
-    part3.redraw();
+    part3.drawItems();
   }
   
 }
@@ -174,8 +179,9 @@ class ULAngleTransporterPartDemo implements DemoFragment {
   }
   
   void redraw() {
+    part3.update();
     part3.drawParts();
-    part3.redraw();
+    part3.drawItems();
   }
   
 }
@@ -193,8 +199,9 @@ class RUAngleTransporterPartDemo implements DemoFragment {
   }
   
   void redraw() {
+    part3.update();
     part3.drawParts();
-    part3.redraw();
+    part3.drawItems();
   }
   
 }
@@ -212,8 +219,9 @@ class DRAngleTransporterPartDemo implements DemoFragment {
   }
   
   void redraw() {
+    part3.update();
     part3.drawParts();
-    part3.redraw();
+    part3.drawItems();
   }
   
 }
@@ -232,12 +240,12 @@ class ClockWiseCirclerFragment implements DemoFragment {
     part4 = new DRAngleTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN, part3, 0, (byte) 1, df);
     part1.previous = part4;
     part1.isStop = true;
-    //part1.previous = part4;
   }
   
   void redraw() {
-    part3.drawParts();
-    part4.redraw();
+    part4.update();
+    part4.drawParts();
+    part4.drawItems();
   }
 }
   
@@ -254,8 +262,9 @@ class DLAngleTransporterPartDemo implements DemoFragment {
   }
   
   void redraw() {
+    part3.update();
     part3.drawParts();
-    part3.redraw();
+    part3.drawItems();
   }
   
 }
@@ -273,8 +282,9 @@ class RDAngleTransporterPartDemo implements DemoFragment {
   }
   
   void redraw() {
+    part3.update();
     part3.drawParts();
-    part3.redraw();
+    part3.drawItems();
   }
   
 }
@@ -292,8 +302,9 @@ class URAngleTransporterPartDemo implements DemoFragment {
   }
   
   void redraw() {
+    part3.update();
     part3.drawParts();
-    part3.redraw();
+    part3.drawItems();
   }
   
 }
@@ -311,8 +322,9 @@ class LUAngleTransporterPartDemo implements DemoFragment {
   }
   
   void redraw() {
+    part3.update();
     part3.drawParts();
-    part3.redraw();
+    part3.drawItems();
   }
   
 }
