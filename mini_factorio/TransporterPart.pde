@@ -1,10 +1,10 @@
-abstract class TransporterPart {
+abstract class TransporterPart  {
  
   int state; // represents the presence of items on the TransporterPart
   TransporterPart previous;
   int posX;
   int posY;
-  int temp; // a temporary variable 
+  int temp;
   byte speed; 
   boolean leftFree;
   boolean rightFree;
@@ -25,22 +25,25 @@ abstract class TransporterPart {
     this.df = df;
   }
   
+  void update() {
+    updateCurrent();
+    if (previous != null && !isStop) previous.update();
+  }
   
   void drawParts() {
-    drawPart();
-    if (previous != null) previous.drawParts();
+    drawCurrentPart();
+    if (previous != null && !isStop) previous.drawParts();
   }
   
-  void redraw() {
-     update();
-     drawItems();
-     if (previous != null) previous.redraw();
+  void drawItems() {
+   drawCurrentItems();
+   if (previous != null && !isStop) previous.drawItems();
   }
   
   
-  public abstract void update();
-  abstract void drawPart();
-  public abstract void drawItems();
+  public abstract void updateCurrent();
+  public abstract void drawCurrentPart();
+  public abstract void drawCurrentItems();
   
   // direct and angle transporter parts contains different first element, therefore this methods
   // must be overrided in each of them
@@ -64,7 +67,6 @@ abstract class TransporterPart {
   public abstract boolean rightFree();
   
   // res
-  
   public abstract int firstLeftRes();
   public abstract int firstRightRes();
   
