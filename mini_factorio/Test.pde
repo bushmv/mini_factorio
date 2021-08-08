@@ -36,6 +36,13 @@ class Test implements Instance {
     println("\n\n\n --- unit tests for transporter parts combination ---");
     ClockwiseAnticlockwiseDirectTransporterParts();
     
+    //unit tests for splitter
+    
+    println("\n\n\n --- unit tests for splitter ---");
+    splitterTest();
+    splitterTestWhenFirstIsFulled();
+    splitterTestWhenSecondIsFulled();
+    FulledSplitterShouldRemainFulled();
     
   }
   
@@ -434,6 +441,110 @@ class Test implements Instance {
     else System.out.println(" + test successfull passed");
   }
   
+  
+  
+  
+  
+  private void splitterTest() {
+    DirectTransporterPart pr = new TestDirectTransporterPart(null, -2004318072, (byte) 1);
+    pr.leftRes = 67305985; pr.rightRes = 134678021;
+    DirectTransporterPart f = new TestDirectTransporterPart(null, 0, (byte) 1);
+    DirectTransporterPart s = new TestDirectTransporterPart(null, 0, (byte) 1);
+    Splitter spl = new TestSplitter(pr, f, s);
+        
+    for (int i = 0; i < 8 * 4; i++) {
+      f.update();
+      s.update();
+      spl.update();
+    }
+        
+    println("\t splitterTest test:");
+    if (f.state != 34952) throw new RuntimeException("test failed,third.state = " + f.state + ", but must be 34952");
+    else if (s.state != -2004353024) throw new RuntimeException("test failed, third.leftRes = " + s.state + ", but must be -2004353024");
+    else if (f.leftRes != 67305985) throw new RuntimeException("test failed, third.rightRes = " + f.leftRes + ", but must be 67305985"); 
+    else if (f.rightRes != 0) throw new RuntimeException("test failed, third.rightRes = " + f.rightRes + ", but must be 0"); 
+    else if (s.leftRes != 0) throw new RuntimeException("test failed, third.rightRes = " + f.leftRes + ", but must be 0"); 
+    else if (s.rightRes != 134678021) throw new RuntimeException("test failed, third.rightRes = " + f.rightRes + ", but must be 134678021"); 
+    else if (pr.state != 0) throw new RuntimeException("test failed, third.rightRes = " + pr.state + ", but must be 0"); 
+    else System.out.println(" + test successfull passed"); 
+  }
+  
+  private void splitterTestWhenFirstIsFulled() {
+    DirectTransporterPart pr = new TestDirectTransporterPart(null, -2004318072, (byte) 1);
+    pr.leftRes = 67305985; pr.rightRes = 134678021;
+    DirectTransporterPart f = new TestDirectTransporterPart(null, -2004318072, (byte) 1);
+    f.leftRes = 67305985; f.rightRes = 134678021;
+    DirectTransporterPart s = new TestDirectTransporterPart(null, 0, (byte) 1);
+    Splitter spl = new TestSplitter(pr, f, s);
+        
+    for (int i = 0; i < 8 * 4; i++) {
+      f.update();
+      s.update();
+      spl.update();
+    }
+        
+    println("\t splitterTestWhenFirstIsFulled test:");
+    if (f.state != -2004318072) throw new RuntimeException("test failed,third.state = " + f.state + ", but must be -2004318072");
+    else if (s.state != -2004318072) throw new RuntimeException("test failed, third.leftRes = " + s.state + ", but must be -2004318072");
+    else if (f.leftRes != 67305985) throw new RuntimeException("test failed, third.rightRes = " + f.leftRes + ", but must be 67305985"); 
+    else if (f.rightRes != 134678021) throw new RuntimeException("test failed, third.rightRes = " + f.rightRes + ", but must be 134678021"); 
+    else if (s.leftRes != 67305985) throw new RuntimeException("test failed, third.rightRes = " + f.leftRes + ", but must be 67305985"); 
+    else if (s.rightRes != 134678021) throw new RuntimeException("test failed, third.rightRes = " + f.rightRes + ", but must be 134678021"); 
+    else if (pr.state != 0) throw new RuntimeException("test failed, third.rightRes = " + pr.state + ", but must be 0"); 
+    else System.out.println(" + test successfull passed"); 
+  }
+  
+  private void splitterTestWhenSecondIsFulled() {
+    DirectTransporterPart pr = new TestDirectTransporterPart(null, -2004318072, (byte) 1);
+    pr.leftRes = 67305985; pr.rightRes = 134678021;
+    DirectTransporterPart f = new TestDirectTransporterPart(null, 0, (byte) 1);
+    DirectTransporterPart s = new TestDirectTransporterPart(null, -2004318072, (byte) 1);
+    s.leftRes = 67305985; s.rightRes = 134678021;
+    Splitter spl = new TestSplitter(pr, f, s);
+        
+    for (int i = 0; i < 8 * 4; i++) {
+      f.update();
+      s.update();
+      spl.update();
+    }
+        
+    println("\t splitterTestWhenSecondIsFulled test:");
+    if (f.state != -2004318072) throw new RuntimeException("test failed,third.state = " + f.state + ", but must be -2004318072");
+    else if (s.state != -2004318072) throw new RuntimeException("test failed, third.leftRes = " + s.state + ", but must be -2004318072");
+    else if (f.leftRes != 67305985) throw new RuntimeException("test failed, third.rightRes = " + f.leftRes + ", but must be 67305985"); 
+    else if (f.rightRes != 134678021) throw new RuntimeException("test failed, third.rightRes = " + f.rightRes + ", but must be 134678021"); 
+    else if (s.leftRes != 67305985) throw new RuntimeException("test failed, third.rightRes = " + f.leftRes + ", but must be 67305985"); 
+    else if (s.rightRes != 134678021) throw new RuntimeException("test failed, third.rightRes = " + f.rightRes + ", but must be 134678021"); 
+    else if (pr.state != 0) throw new RuntimeException("test failed, third.rightRes = " + pr.state + ", but must be 0"); 
+    else System.out.println(" + test successfull passed"); 
+  }
+  
+  private void FulledSplitterShouldRemainFulled() {
+    DirectTransporterPart pr = new TestDirectTransporterPart(null, -2004318072, (byte) 1);
+    pr.leftRes = 67305985; pr.rightRes = 134678021;
+    DirectTransporterPart f = new TestDirectTransporterPart(null, -2004318072, (byte) 1);
+    f.leftRes = 67305985; f.rightRes = 134678021;
+    DirectTransporterPart s = new TestDirectTransporterPart(null, -2004318072, (byte) 1);
+    s.leftRes = 67305985; s.rightRes = 134678021;
+    Splitter spl = new TestSplitter(pr, f, s);
+        
+    for (int i = 0; i < 8 * 4; i++) {
+      f.update();
+      s.update();
+      spl.update();
+    }
+        
+    println("\t splitterTestWhenFirstIsFulled test:");
+    if (f.state != -2004318072) throw new RuntimeException("test failed,third.state = " + f.state + ", but must be -2004318072");
+    else if (s.state != -2004318072) throw new RuntimeException("test failed, third.leftRes = " + s.state + ", but must be -2004318072");
+    else if (f.leftRes != 67305985) throw new RuntimeException("test failed, third.rightRes = " + f.leftRes + ", but must be 67305985"); 
+    else if (f.rightRes != 134678021) throw new RuntimeException("test failed, third.rightRes = " + f.rightRes + ", but must be 134678021"); 
+    else if (s.leftRes != 67305985) throw new RuntimeException("test failed, third.rightRes = " + f.leftRes + ", but must be 67305985"); 
+    else if (s.rightRes != 134678021) throw new RuntimeException("test failed, third.rightRes = " + f.rightRes + ", but must be 134678021"); 
+    else if (pr.state != -2004318072) throw new RuntimeException("test failed, third.rightRes = " + pr.state + ", but must be 0"); 
+    else System.out.println(" + test successfull passed"); 
+  }
+  
 }
 
 class TestDirectTransporterPart extends DirectTransporterPart {
@@ -466,4 +577,12 @@ class TestAntiClockWiseAngleTransporterPart extends AntiClockWiseAngleTransporte
   // empty, don't need draw when test
   public void drawCurrentItems() {}
   public void drawCurrentPart() {}
+}
+
+class TestSplitter extends Splitter {
+  public TestSplitter(TransporterPart previous, DirectTransporterPart first, DirectTransporterPart second) {
+    super(0, 0, previous, first, second, null);
+  }
+  // empty, don't need draw when test
+  void drawSplitterPart() {}
 }
