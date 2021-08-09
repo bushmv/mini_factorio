@@ -555,7 +555,7 @@ class Test implements Instance {
     DirectTransporterPart second = new TestDirectTransporterPart(first, 0, (byte) 1);
     DirectTransporterPart r = new TestDirectTransporterPart(null, -2147450880, (byte) 1);
     r.leftRes = 16777216; r.rightRes = 16777216;
-    Mediator m = new Mediator(new RemovableFirstItemsLeftFirst(r), new InsertableToDirectOnRightSecondPosition(first));
+    Mediator m = new SimpleMediator(new RemovableFirstItemsLeftFirst(r), new InsertableToDirectOnRightSecondPosition(first));
    
     for (int i = 0; i < 8 * 4 * 3; i++) {
       second.drawParts();
@@ -583,7 +583,7 @@ class Test implements Instance {
     DirectTransporterPart second = new TestDirectTransporterPart(first, 0, (byte) 1);
     DirectTransporterPart r = new TestDirectTransporterPart(null, -2147450880, (byte) 1);
     r.leftRes = 16777216; r.rightRes = 16777216;
-    Mediator m = new Mediator(new RemovableFirstItemsRightFirst(r), new InsertableToDirectOnLeftSecondPosition(first));
+    Mediator m = new SimpleMediator(new RemovableFirstItemsRightFirst(r), new InsertableToDirectOnLeftSecondPosition(first));
    
     for (int i = 0; i < 8 * 4 * 3; i++) {
       second.drawParts();

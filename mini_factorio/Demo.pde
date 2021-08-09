@@ -383,7 +383,7 @@ class MediatorToRightSideDemo implements DemoFragment {
       p4 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 4, CONSTANTS.BLOCK_LEN, p3, 0, (byte) 1, df);
       r = new DUDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, null, -2004318072, (byte) 1, df);
       r.leftRes = 16843009; r.rightRes = 16843009;
-      m = new Mediator(new RemovableFirstItemsLeftFirst(r), new InsertableToDirectOnRightSecondPosition(p2));
+      m = new SimpleMediator(new RemovableFirstItemsLeftFirst(r), new InsertableToDirectOnRightSecondPosition(p2));
     }
     
     void redraw() {
@@ -418,7 +418,7 @@ class MediatorToLeftSideDemo implements DemoFragment {
       p4 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 4, CONSTANTS.BLOCK_LEN * 2, p3, 0, (byte) 1, df);
       r = new UDDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN, null, -2004318072, (byte) 1, df);
       r.leftRes = 16843009; r.rightRes = 16843009;
-      m = new Mediator(new RemovableFirstItemsRightFirst(r), new InsertableToDirectOnLeftSecondPosition(p2));
+      m = new SimpleMediator(new RemovableFirstItemsRightFirst(r), new InsertableToDirectOnLeftSecondPosition(p2));
     }
     
     void redraw() {
