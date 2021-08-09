@@ -37,12 +37,16 @@ class Test implements Instance {
     ClockwiseAnticlockwiseDirectTransporterParts();
     
     //unit tests for splitter
-    
     println("\n\n\n --- unit tests for splitter ---");
     splitterTest();
     splitterTestWhenFirstIsFulled();
     splitterTestWhenSecondIsFulled();
     FulledSplitterShouldRemainFulled();
+    
+    // unit tests for mediator
+    println("\n\n\n --- unit tests for mediator ---");
+    mediatorToRightSideTest();
+    mediatorToLeftSideTest();
     
   }
   
@@ -543,6 +547,62 @@ class Test implements Instance {
     else if (s.rightRes != 134678021) throw new RuntimeException("test failed, third.rightRes = " + f.rightRes + ", but must be 134678021"); 
     else if (pr.state != -2004318072) throw new RuntimeException("test failed, third.rightRes = " + pr.state + ", but must be 0"); 
     else System.out.println(" + test successfull passed"); 
+  }
+  
+  private void mediatorToRightSideTest() {
+    DirectTransporterPart first = new TestDirectTransporterPart(null, -2147450880, (byte) 1);
+    first.leftRes = 16777216; first.rightRes = 16777216;
+    DirectTransporterPart second = new TestDirectTransporterPart(first, 0, (byte) 1);
+    DirectTransporterPart r = new TestDirectTransporterPart(null, -2147450880, (byte) 1);
+    r.leftRes = 16777216; r.rightRes = 16777216;
+    Mediator m = new Mediator(new RemovableFirstItemsLeftFirst(r), new InsertableToDirectOnRightSecondPosition(first));
+   
+    for (int i = 0; i < 8 * 4 * 3; i++) {
+      second.drawParts();
+      r.drawParts();
+      
+      second.update();
+      r.update();
+      m.update();
+      
+      second.drawItems();
+      r.drawItems();
+    }
+
+    println("\t mediatorToRightSideTest test:");
+    if (second.state != 143130632) throw new RuntimeException("test failed, second.state = " + second.state + ", but must be 143130632");
+    else if (first.state != 0) throw new RuntimeException("test failed, first.state = " + first.state + ", but must be 0");
+    else if (r.state != 0) throw new RuntimeException("test failed, r.state = " + r.state + ", but must be ");
+    else if (second.leftRes != 1) throw new RuntimeException("test failed, second.leftRes = " + first.leftRes + ", but must be 1");
+    else if (second.rightRes != 65793) throw new RuntimeException("test failed, first.rightRes = " + second.rightRes + ", but must be 65793");
+  }
+  
+  private void mediatorToLeftSideTest() {
+    DirectTransporterPart first = new TestDirectTransporterPart(null, -2147450880, (byte) 1);
+    first.leftRes = 16777216; first.rightRes = 16777216;
+    DirectTransporterPart second = new TestDirectTransporterPart(first, 0, (byte) 1);
+    DirectTransporterPart r = new TestDirectTransporterPart(null, -2147450880, (byte) 1);
+    r.leftRes = 16777216; r.rightRes = 16777216;
+    Mediator m = new Mediator(new RemovableFirstItemsRightFirst(r), new InsertableToDirectOnLeftSecondPosition(first));
+   
+    for (int i = 0; i < 8 * 4 * 3; i++) {
+      second.drawParts();
+      r.drawParts();
+      
+      second.update();
+      r.update();
+      m.update();
+      
+      second.drawItems();
+      r.drawItems();
+    }
+
+    println("\t mediatorToLeftSideTest test:");
+    if (second.state != 526472) throw new RuntimeException("test failed, second.state = " + second.state + ", but must be 526472");
+    else if (first.state != 0) throw new RuntimeException("test failed, first.state = " + first.state + ", but must be 0");
+    else if (r.state != 0) throw new RuntimeException("test failed, r.state = " + r.state + ", but must be ");
+    else if (second.leftRes != 65793) throw new RuntimeException("test failed, second.leftRes = " + first.leftRes + ", but must be 65793");
+    else if (second.rightRes != 1) throw new RuntimeException("test failed, first.rightRes = " + second.rightRes + ", but must be 1");
   }
   
 }

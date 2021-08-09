@@ -26,7 +26,11 @@ class Demo implements Instance {
     //demoFragment = new LUAngleTransporterPartDemo(df); 
     
     // splitter demo
-    demoFragment = new SplitterDemo(df);
+    //demoFragment = new SplitterDemo(df);
+    
+    //mediator demo
+    //demoFragment = new MediatorToRightSideDemo(df);
+    demoFragment = new MediatorToLeftSideDemo(df);
   }
   
   public void run() {
@@ -361,4 +365,74 @@ class SplitterDemo implements DemoFragment {
     sp.drawPreviousItems();
     
   }
+}
+
+class MediatorToRightSideDemo implements DemoFragment {
+    
+    DirectTransporterPart p1;
+    DirectTransporterPart p2;
+    DirectTransporterPart p3;
+    DirectTransporterPart p4;
+    DirectTransporterPart r;
+    Mediator m;
+    
+    public MediatorToRightSideDemo(DrawableTransporterPartFlyweight df) {
+      p1 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN, null, 0, (byte) 1, df);
+      p2 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN, p1, 0, (byte) 1, df);
+      p3 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 3, CONSTANTS.BLOCK_LEN, p2, 0, (byte) 1, df);
+      p4 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 4, CONSTANTS.BLOCK_LEN, p3, 0, (byte) 1, df);
+      r = new DUDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, null, -2004318072, (byte) 1, df);
+      r.leftRes = 16843009; r.rightRes = 16843009;
+      m = new Mediator(new RemovableFirstItemsLeftFirst(r), new InsertableToDirectOnRightSecondPosition(p2));
+    }
+    
+    void redraw() {
+      p4.drawParts();
+      r.drawParts();
+     
+      p4.update();
+      r.update();
+      m.update();
+      
+
+      p4.drawItems();
+      r.drawItems();
+      
+
+    }
+}
+
+class MediatorToLeftSideDemo implements DemoFragment {
+    
+    DirectTransporterPart p1;
+    DirectTransporterPart p2;
+    DirectTransporterPart p3;
+    DirectTransporterPart p4;
+    DirectTransporterPart r;
+    Mediator m;
+    
+    public MediatorToLeftSideDemo(DrawableTransporterPartFlyweight df) {
+      p1 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN * 2, null, 0, (byte) 1, df);
+      p2 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, p1, 0, (byte) 1, df);
+      p3 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 3, CONSTANTS.BLOCK_LEN * 2, p2, 0, (byte) 1, df);
+      p4 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 4, CONSTANTS.BLOCK_LEN * 2, p3, 0, (byte) 1, df);
+      r = new UDDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN, null, -2004318072, (byte) 1, df);
+      r.leftRes = 16843009; r.rightRes = 16843009;
+      m = new Mediator(new RemovableFirstItemsRightFirst(r), new InsertableToDirectOnLeftSecondPosition(p2));
+    }
+    
+    void redraw() {
+      p4.drawParts();
+      r.drawParts();
+     
+      p4.update();
+      r.update();
+      m.update();
+      
+
+      p4.drawItems();
+      r.drawItems();
+      
+
+    }
 }
