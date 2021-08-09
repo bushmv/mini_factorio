@@ -48,6 +48,11 @@ class Test implements Instance {
     mediatorToRightSideTest();
     mediatorToLeftSideTest();
     
+    //unit tests for manipulator
+    println("\n\n\n --- unit tests for manipulator ---");
+    //manipulatorTestFirstLeft();
+    manipulatorTestFirstLeftRemovableFirstLeftInsertable();
+    manipulatorTestFirstRightRemovableFirstRightInsertable();
   }
   
   
@@ -575,6 +580,7 @@ class Test implements Instance {
     else if (r.state != 0) throw new RuntimeException("test failed, r.state = " + r.state + ", but must be ");
     else if (second.leftRes != 1) throw new RuntimeException("test failed, second.leftRes = " + first.leftRes + ", but must be 1");
     else if (second.rightRes != 65793) throw new RuntimeException("test failed, first.rightRes = " + second.rightRes + ", but must be 65793");
+    else System.out.println(" + test successfull passed");
   }
   
   private void mediatorToLeftSideTest() {
@@ -603,6 +609,43 @@ class Test implements Instance {
     else if (r.state != 0) throw new RuntimeException("test failed, r.state = " + r.state + ", but must be ");
     else if (second.leftRes != 65793) throw new RuntimeException("test failed, second.leftRes = " + first.leftRes + ", but must be 65793");
     else if (second.rightRes != 1) throw new RuntimeException("test failed, first.rightRes = " + second.rightRes + ", but must be 1");
+    else System.out.println(" + test successfull passed");
+  }
+  
+  private void manipulatorTestFirstLeftRemovableFirstLeftInsertable() {
+    DirectTransporterPart from = new TestDirectTransporterPart(null, 143132808, (byte) 1);
+    from.leftRes = 65793; from.rightRes = 65793;
+    DirectTransporterPart to = new TestDirectTransporterPart(null, 0, (byte) 1);
+    Manipulator m = new TestManipulator(new RemovableManipulatorDirectLeftFirst(from), new InsertableManipulatorDirectLeftFirst(to), 16);
+    
+    for (int i = 0; i < 8 * 20; i++) {
+      from.update();
+      to.update();
+      m.update();
+    }
+    
+    println("\t manipulatorTestFirstLeftRemovableFirstLeftInsertable test:");
+    if (to.state != 526472) throw new RuntimeException("test failed, to.state = " + to.state + ", but must be 526472");
+    else if (from.state != 524296) throw new RuntimeException("test failed, from.state = " + from.state + ", but must be 524296");
+    else System.out.println(" + test successfull passed"); 
+  }
+  
+  private void manipulatorTestFirstRightRemovableFirstRightInsertable() {
+    DirectTransporterPart from = new TestDirectTransporterPart(null, 143132808, (byte) 1);
+    from.leftRes = 65793; from.rightRes = 65793;
+    DirectTransporterPart to = new TestDirectTransporterPart(null, 0, (byte) 1);
+    Manipulator m = new TestManipulator(new RemovableManipulatorDirectRightFirst(from), new InsertableManipulatorDirectRightFirst(to), 16);
+    
+    for (int i = 0; i < 8 * 20; i++) {
+      from.update();
+      to.update();
+      m.update();
+    }
+    
+    println("\t manipulatorTestFirstRightRemovableFirstRightInsertable test:");
+    if (to.state != 143130632) throw new RuntimeException("test failed, to.state = " + to.state + ", but must be 143130632");
+    else if (from.state != 524296) throw new RuntimeException("test failed, from.state = " + from.state + ", but must be 524296");
+    else System.out.println(" + test successfull passed"); 
   }
   
 }
@@ -645,4 +688,12 @@ class TestSplitter extends Splitter {
   }
   // empty, don't need draw when test
   void drawSplitterPart() {}
+}
+
+class TestManipulator extends Manipulator {
+  public TestManipulator(Removable source, Insertable dest, int speed) {
+    super(0, 0, source, dest, speed, null);
+  }
+  // empty, don't need draw when test
+  void draw() {}
 }
