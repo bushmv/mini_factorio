@@ -28,9 +28,15 @@ class Demo implements Instance {
     // splitter demo
     //demoFragment = new SplitterDemo(df);
     
-    //mediator demo
+    //mediator demo 
     //demoFragment = new MediatorToRightSideDemo(df);
-    demoFragment = new MediatorToLeftSideDemo(df);
+    //demoFragment = new MediatorToLeftSideDemo(df);
+    
+    //manipulator demo
+    //demoFragment = new UDManipulatorDemo(df);
+    //demoFragment = new DUManipulatorDemo(df); 
+    //demoFragment = new LRManipulatorDemo(df); 
+    demoFragment = new RLManipulatorDemo(df);
   }
   
   public void run() {
@@ -435,4 +441,108 @@ class MediatorToLeftSideDemo implements DemoFragment {
       
 
     }
+}
+
+class UDManipulatorDemo implements DemoFragment {
+  DirectTransporterPart from;
+  DirectTransporterPart to;
+  Manipulator m;
+  public UDManipulatorDemo(DrawableTransporterPartFlyweight df) {
+    from = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN, null, -2004318072, (byte) 1, df);
+    from.leftRes = 16843009; from.rightRes = 33686018;
+    to = new RLDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 3, null, 0, (byte) 1, df);
+    m = new UDManipulator(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, 
+              new RemovableManipulatorDirectLeftFirst(from), new InsertableManipulatorDirectRightFirst(to), 16, new DrawableManupulatorFlyweight(CONSTANTS.BLOCK_LEN * 2 / 16));
+  }
+  
+  void redraw() {
+    from.drawParts();
+    to.drawParts();
+    
+    from.update();
+    to.update();
+    m.update();
+    
+    from.drawItems();
+    to.drawItems();
+    m.draw();
+  }
+}
+
+class DUManipulatorDemo implements DemoFragment {
+  DirectTransporterPart from;
+  DirectTransporterPart to;
+  Manipulator m;
+  public DUManipulatorDemo(DrawableTransporterPartFlyweight df) {
+    from = new RLDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 3, null, -2004318072, (byte) 1, df);
+    from.leftRes = 16843009; from.rightRes = 33686018;
+    to = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN, null, 0, (byte) 1, df);
+    m = new DUManipulator(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, 
+              new RemovableManipulatorDirectRightFirst(from), new InsertableManipulatorDirectLeftFirst(to), 16, new DrawableManupulatorFlyweight(CONSTANTS.BLOCK_LEN * 2 / 16));
+  }
+  
+  void redraw() {
+    from.drawParts();
+    to.drawParts();
+    
+    from.update();
+    to.update();
+    m.update();
+    
+    from.drawItems();
+    to.drawItems();
+    m.draw();
+  }
+}
+
+class LRManipulatorDemo implements DemoFragment {
+  DirectTransporterPart from;
+  DirectTransporterPart to;
+  Manipulator m;
+  public LRManipulatorDemo(DrawableTransporterPartFlyweight df) {
+    from = new UDDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, null, -2004318072, (byte) 1, df);
+    from.leftRes = 16843009; from.rightRes = 33686018;
+    to = new DUDirectTransporterPart(CONSTANTS.BLOCK_LEN * 4, CONSTANTS.BLOCK_LEN * 2, null, 0, (byte) 1, df);
+    m = new LRManipulator(CONSTANTS.BLOCK_LEN * 3, CONSTANTS.BLOCK_LEN * 2, 
+              new RemovableManipulatorDirectRightFirst(from), new InsertableManipulatorDirectRightFirst(to), 16, new DrawableManupulatorFlyweight(CONSTANTS.BLOCK_LEN * 2 / 16));
+  }
+  
+  void redraw() {
+    from.drawParts();
+    to.drawParts();
+    
+    from.update();
+    to.update();
+    m.update();
+    
+    from.drawItems();
+    to.drawItems();
+    m.draw();
+  }
+}
+
+class RLManipulatorDemo implements DemoFragment {
+  DirectTransporterPart from;
+  DirectTransporterPart to;
+  Manipulator m;
+  public RLManipulatorDemo(DrawableTransporterPartFlyweight df) {
+    from = new UDDirectTransporterPart(CONSTANTS.BLOCK_LEN * 4, CONSTANTS.BLOCK_LEN * 2, null, -2004318072, (byte) 1, df);
+    from.leftRes = 16843009; from.rightRes = 33686018;
+    to = new DUDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, null, 0, (byte) 1, df);
+    m = new RLManipulator(CONSTANTS.BLOCK_LEN * 3, CONSTANTS.BLOCK_LEN * 2, 
+              new RemovableManipulatorDirectRightFirst(from), new InsertableManipulatorDirectLeftFirst(to), 16, new DrawableManupulatorFlyweight(CONSTANTS.BLOCK_LEN * 2 / 16));
+  }
+  
+  void redraw() {
+    from.drawParts();
+    to.drawParts();
+    
+    from.update();
+    to.update();
+    m.update();
+    
+    from.drawItems();
+    to.drawItems();
+    m.draw();
+  }
 }
