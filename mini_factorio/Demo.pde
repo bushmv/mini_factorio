@@ -36,7 +36,18 @@ class Demo implements Instance {
     //demoFragment = new UDManipulatorDemo(df);
     //demoFragment = new DUManipulatorDemo(df); 
     //demoFragment = new LRManipulatorDemo(df); 
-    demoFragment = new RLManipulatorDemo(df);
+    //demoFragment = new RLManipulatorDemo(df);
+    
+    //manipulator with angle transporter parts
+    //demoFragment = new URtoRDManipulatorDemo(df); 
+    //demoFragment = new LRtoDRManipulatorDemo(df);
+    
+    // miningDrill
+    //demoFragment = new MiningDrillDemo(df); 
+    
+    //underground transporter part demo 
+    demoFragment = new UndergroundTransporterPartDemo(df); 
+    
   }
   
   public void run() {
@@ -545,4 +556,144 @@ class RLManipulatorDemo implements DemoFragment {
     to.drawItems();
     m.draw();
   }
+}
+
+class URtoRDManipulatorDemo implements DemoFragment {
+  AntiClockWiseAngleTransporterPart from;
+  AntiClockWiseAngleTransporterPart to;
+  Manipulator m;
+  public URtoRDManipulatorDemo(DrawableTransporterPartFlyweight df) {
+    from = new URAngleTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, null, -2004318072, (byte) 1, df);
+    from.leftRes = 16843009; from.rightRes = 33686018;
+    to = new RDAngleTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 4, null, 0, (byte) 1, df);
+    m = new UDManipulator(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 3, 
+              new RemovableManipulatorAntiClockwise(from), new InsertableManipulatorAntiClockWise(to), 16, new DrawableManupulatorFlyweight(CONSTANTS.BLOCK_LEN * 2 / 16));
+  }
+  
+  void redraw() {
+    from.drawParts();
+    to.drawParts();
+    
+    from.update();
+    to.update();
+    m.update();
+    
+    from.drawItems();
+    to.drawItems();
+    m.draw();
+  }
+}
+
+class LRtoDRManipulatorDemo implements DemoFragment {
+  ClockWiseAngleTransporterPart from;
+  ClockWiseAngleTransporterPart to;
+  Manipulator m;
+  public LRtoDRManipulatorDemo(DrawableTransporterPartFlyweight df) {
+    from = new ULAngleTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 2, null, -2004318072, (byte) 1, df);
+    from.leftRes = 16843009; from.rightRes = 33686018;
+    to = new DRAngleTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 4, null, 0, (byte) 1, df);
+    m = new UDManipulator(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 3, 
+              new RemovableManipulatorClockwise(from), new InsertableManipulatorClockWise(to), 16, new DrawableManupulatorFlyweight(CONSTANTS.BLOCK_LEN * 2 / 16));
+  }
+  
+  void redraw() {
+    from.drawParts();
+    to.drawParts();
+    
+    from.update();
+    to.update();
+    m.update();
+    
+    from.drawItems();
+    to.drawItems();
+    m.draw();
+  }
+  
+}
+
+class MiningDrillDemo implements DemoFragment {
+  
+  DirectTransporterPart p1;
+  DirectTransporterPart p2;
+  DirectTransporterPart p3;
+  DirectTransporterPart p4;
+  DirectTransporterPart p5;
+  
+  MiningDrill md1;
+  MiningDrill md2;
+  
+  Mediator m1;
+  Mediator m2;
+  
+  public MiningDrillDemo(DrawableTransporterPartFlyweight df) {
+    p1 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN * 4, null, 0, (byte)1, df);
+    p2 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 2, CONSTANTS.BLOCK_LEN * 4, p1, 0, (byte)1, df);
+    p3 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 3, CONSTANTS.BLOCK_LEN * 4, p2, 0, (byte)1, df);
+    p4 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 4, CONSTANTS.BLOCK_LEN * 4, p3, 0, (byte)1, df);
+    p5 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 5, CONSTANTS.BLOCK_LEN * 4, p4, 0, (byte)1, df);
+    
+    
+    DrawableMiningDrillFlyweight dfmd = new SimpleDrawableMiningDrillFlyweight();
+    md1 = new UDMiningDrill(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN, 32, 1, dfmd); 
+    md2 = new DUMiningDrill(CONSTANTS.BLOCK_LEN * 3, CONSTANTS.BLOCK_LEN * 5, 32, 2, dfmd);
+    
+    m1 = new SimpleMediator(md1, new InsertableToDirectOnLeftSecondPosition(p2));
+    m2 = new SimpleMediator(md2, new InsertableToDirectOnRightSecondPosition(p4));
+  }
+  
+  void redraw() {
+    p5.drawParts();
+    
+    p5.update();
+    md1.update();
+    md2.update();
+    m1.update();
+    m2.update();
+    
+    p5.drawItems();
+    md1.draw();
+    md2.draw();
+  }
+  
+}
+
+class UndergroundTransporterPartDemo implements DemoFragment {
+  
+  TransporterPart t1;
+  TransporterPart t2;
+  TransporterPart t3;
+  TransporterPart t4;
+  TransporterPart t5;
+  
+  TransporterPart g1;
+  TransporterPart g2;
+  TransporterPart g3;
+  
+  public UndergroundTransporterPartDemo(DrawableTransporterPartFlyweight df) {
+     t1 = new UDDirectTransporterPart(CONSTANTS.BLOCK_LEN * 3, CONSTANTS.BLOCK_LEN, null, -2146957184, (byte) 1, df);
+     t1.leftRes = 65792; t1.rightRes = 33554434;
+     t2 = new UDDirectTransporterPart(CONSTANTS.BLOCK_LEN * 3, CONSTANTS.BLOCK_LEN * 2, t1, 0, (byte) 1, df);
+     t3 = new UDDirectTransporterPart(CONSTANTS.BLOCK_LEN * 3, CONSTANTS.BLOCK_LEN * 3, t2, 0, (byte) 1, df);
+     
+     t4 = new LRFirstUndergroundTransporterPart(CONSTANTS.BLOCK_LEN, CONSTANTS.BLOCK_LEN * 2, null, 134250496, (byte) 1, df);
+     t4.leftRes = 16777216; t4.rightRes = 131072;
+     
+     g1 = new DirectUndergroundTranspoterPart(t4, 0, (byte) 1);
+     g2 = new DirectUndergroundTranspoterPart(g1, 0, (byte) 1);
+     g3 = new DirectUndergroundTranspoterPart(g2, 0, (byte) 1);
+     
+     t5 = new LRDirectTransporterPart(CONSTANTS.BLOCK_LEN * 5, CONSTANTS.BLOCK_LEN * 2, g3, 0, (byte) 1, df);
+  }
+  
+  void redraw() {
+     t3.drawParts();
+     t5.drawParts();
+     
+     t3.update();
+     t5.update();
+     
+     t3.drawItems();
+     t5.drawItems();
+  }
+  
 }
