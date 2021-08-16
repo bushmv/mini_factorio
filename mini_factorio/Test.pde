@@ -50,9 +50,19 @@ class Test implements Instance {
     
     //unit tests for manipulator
     println("\n\n\n --- unit tests for manipulator ---");
-    //manipulatorTestFirstLeft();
     manipulatorTestFirstLeftRemovableFirstLeftInsertable();
     manipulatorTestFirstRightRemovableFirstRightInsertable();
+    antiClockWiseToAntiCLockWiseManipulatorMediator();
+    clockWiseToCLockWiseManipulatorMediator();
+    
+    //unit tests for mining drill 
+    println("\n\n\n --- unit tests for mining drill ---");
+    miningDrillTest();
+    
+    //unit tests for underground transporter part
+    println("\n\n\n --- unit tests for underground transporter part ---");
+    
+    undergroundTranspoterPartTest();
   }
   
   
@@ -648,6 +658,93 @@ class Test implements Instance {
     else System.out.println(" + test successfull passed"); 
   }
   
+  private void antiClockWiseToAntiCLockWiseManipulatorMediator() {
+    AntiClockWiseAngleTransporterPart from = new TestAntiClockWiseAngleTransporterPart(null, -2004318072, (byte) 1);
+    from.leftRes = 16843009; from.rightRes = 33686018;
+    AntiClockWiseAngleTransporterPart to = new TestAntiClockWiseAngleTransporterPart(null, 0, (byte) 1  );
+    Manipulator m = new TestManipulator(new RemovableManipulatorAntiClockwise(from), new InsertableManipulatorAntiClockWise(to), 16);
+              
+    for (int i = 0; i < 8 * 32; i++) {
+      from.update();
+      to.update();
+      m.update();
+    }
+    
+    println("\t antiClockWiseToAntiCLockWiseManipulatorMediator test:");
+    if (to.state != 143163528) throw new RuntimeException("test failed, to.state = " + to.state + ", but must be 143163528");
+    else if (from.state != 32776) throw new RuntimeException("test failed, from.state = " + from.state + ", but must be 32776");
+    else if (to.leftRes != 33554689) throw new RuntimeException("test failed, to.leftRes = " + to.leftRes + ", but must be 33554689");
+    else if (to.rightRes != 131586) throw new RuntimeException("test failed, to.rightRes = " + to.rightRes + ", but must be 131586");
+    else System.out.println(" + test successfull passed"); 
+  }
+  
+  private void clockWiseToCLockWiseManipulatorMediator() {
+    ClockWiseAngleTransporterPart from = new TestClockWiseAngleTransporterPart(null, -2004318072, (byte) 1);
+    from.leftRes = 16843009; from.rightRes = 33686018;
+    ClockWiseAngleTransporterPart to = new TestClockWiseAngleTransporterPart(null, 0, (byte) 1  );
+    Manipulator m = new TestManipulator(new RemovableManipulatorClockwise(from), new InsertableManipulatorClockWise(to), 16);
+              
+    for (int i = 0; i < 8 * 32; i++) {
+      from.update();
+      to.update();
+      m.update();
+    }
+    
+    println("\t clockWiseToCLockWiseManipulatorMediator test:");
+    if (to.state != 142641288) throw new RuntimeException("test failed, to.state = " + to.state + ", but must be 142641288");
+    else if (from.state != 8388616) throw new RuntimeException("test failed, from.state = " + from.state + ", but must be 32776");
+    else if (to.leftRes != 16843265) throw new RuntimeException("test failed, to.leftRes = " + to.leftRes + ", but must be 16843265");
+    else if (to.rightRes != 131584) throw new RuntimeException("test failed, to.rightRes = " + to.rightRes + ", but must be 131584");
+    else System.out.println(" + test successfull passed"); 
+  }
+  
+  private void miningDrillTest() {
+   
+    MiningDrill leftMd = new TestMiningDrill(2);
+    MiningDrill rightMd = new TestMiningDrill(4);
+    DirectTransporterPart first = new TestDirectTransporterPart(null, 0, (byte) 1);
+    DirectTransporterPart second = new TestDirectTransporterPart(first, 0, (byte) 1);
+    
+    Mediator m1 = new SimpleMediator(leftMd, new InsertableToDirectOnLeftSecondPosition(first));
+    Mediator m2 = new SimpleMediator(rightMd, new InsertableToDirectOnRightSecondPosition(first));
+    
+    for (int i = 0; i < 8 * 32; i++) {  
+      second.update();
+      leftMd.update();
+      rightMd.update();
+      m1.update();
+      m2.update();
+    }
+    
+    println("\t miningDrillTest test:");
+    if (second.state != -2004318072) throw new RuntimeException("test failed, second.state = " + second.state + ", but must be -2004318072");
+    else if (second.leftRes != 33686018) throw new RuntimeException("test failed, second.leftRes = " + second.leftRes + ", but must be 33686018");
+    else if (second.rightRes != 67372036) throw new RuntimeException("test failed, second.rightRes = " + second.rightRes + ", but must be 67372036");
+    else System.out.println(" + test successfull passed"); 
+    
+  }
+  
+  private void undergroundTranspoterPartTest() {
+    
+    LRFirstUndergroundTransporterPart first = new LRFirstUndergroundTransporterPart(0, 0, null, -2004318072, byte(1), null);
+    first.leftRes = 16843009; first.rightRes = 33686018;
+    DirectUndergroundTranspoterPart u1 = new DirectUndergroundTranspoterPart(first, 0, (byte) 1); 
+    DirectUndergroundTranspoterPart u2 = new DirectUndergroundTranspoterPart(u1, 0, (byte) 1); 
+    DirectUndergroundTranspoterPart u3 = new DirectUndergroundTranspoterPart(u2, 0, (byte) 1); 
+    DirectTransporterPart last = new TestDirectTransporterPart(u3, 0, (byte) 1);
+    
+    for (int i = 0; i < 8 * 32; i++) {  
+      last.update();
+    }
+    
+    println("\t undergroundTranspoterPartTest test:");
+    if (last.state != -2004318072) throw new RuntimeException("test failed, last.state = " + last.state + ", but must be -2004318072");
+    else if (last.leftRes != 16843009) throw new RuntimeException("test failed, last.leftRes = " + last.leftRes + ", but must be 16843009");
+    else if (last.rightRes != 33686018) throw new RuntimeException("test failed, last.rightRes = " + last.rightRes + ", but must be 33686018");
+    else System.out.println(" + test successfull passed"); 
+    
+  }
+  
 }
 
 class TestDirectTransporterPart extends DirectTransporterPart {
@@ -693,6 +790,14 @@ class TestSplitter extends Splitter {
 class TestManipulator extends Manipulator {
   public TestManipulator(Removable source, Insertable dest, int speed) {
     super(0, 0, source, dest, speed, null);
+  }
+  // empty, don't need draw when test
+  void draw() {}
+}
+
+class TestMiningDrill extends MiningDrill {
+  public TestMiningDrill(int res) {
+   super(0, 0, 16, res, null); 
   }
   // empty, don't need draw when test
   void draw() {}
