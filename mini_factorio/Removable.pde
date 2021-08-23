@@ -3,5 +3,10 @@ public interface Removable {
   
   public boolean canRemove();
   public int remove();
+  
+}
 
+interface PeekAllRemovable extends Removable {
+  int[] peek();
+  void removeAt(int position);
 }
