@@ -5,7 +5,10 @@ abstract class Splitter {
   private final TransporterPart previous;
   protected int posX;
   protected int posY;
-  private boolean trigger = true;  
+  
+  private boolean firstTrigger = true;
+  private boolean secondTrigger = true;
+  
   DrawableSplitterFlyweight df;
   
   public Splitter(int posX, int posY, TransporterPart previous, DirectTransporterPart first, DirectTransporterPart second, DrawableSplitterFlyweight df) {
@@ -28,11 +31,11 @@ abstract class Splitter {
          int res = previous.firstLeftRes();
          previous.removeFirstLeftRes();
          previous.removeFirstLeftItem();
-         if (trigger) {
+         if (firstTrigger) {
              if (first.leftFree()) { // or first can insert item, or second cause first if statement contains "&& (first.leftFree() || second.leftFree())"
                first.insertLeftItemInEnd();
                first.leftRes = first.leftRes + (res << 24);
-               trigger = !trigger;
+               firstTrigger = !firstTrigger;
              } else {
                second.insertLeftItemInEnd(); 
                second.leftRes = second.leftRes + (res << 24);
@@ -41,7 +44,7 @@ abstract class Splitter {
              if (second.leftFree()) {
                second.insertLeftItemInEnd();
                second.leftRes = second.leftRes + (res << 24);
-               trigger = !trigger;
+               firstTrigger = !firstTrigger;
              } else {
                first.insertLeftItemInEnd(); 
                first.leftRes = first.leftRes + (res << 24);
@@ -57,11 +60,11 @@ abstract class Splitter {
          int res = previous.firstRightRes();
          previous.removeFirstRightRes();
          previous.removeFirstRightItem(); 
-         if (trigger) {
+         if (secondTrigger) {
              if (first.rightFree()) {
                first.insertRightItemInEnd();
                first.rightRes = first.rightRes + (res << 24);
-               trigger = !trigger;
+               secondTrigger = !secondTrigger;
              } else {
                second.insertRightItemInEnd(); 
                second.rightRes = second.rightRes + (res << 24);
@@ -70,7 +73,7 @@ abstract class Splitter {
              if (second.rightFree()) {
                second.insertRightItemInEnd();
                second.rightRes = second.rightRes + (res << 24);
-               trigger = !trigger;
+               secondTrigger = !secondTrigger;
              } else {
                first.insertRightItemInEnd(); 
                first.rightRes = first.rightRes + (res << 24);
@@ -92,7 +95,7 @@ abstract class Splitter {
   
   void drawPreviousParts() {
     drawSplitterPart();
-    previous.drawParts();
+    if (previous != null) { previous.drawParts(); }
   }
   
   void drawPreviousItems() {

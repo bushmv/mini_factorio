@@ -466,25 +466,25 @@ class Test implements Instance {
   
   private void splitterTest() {
     DirectTransporterPart pr = new TestDirectTransporterPart(null, -2004318072, (byte) 1);
-    pr.leftRes = 67305985; pr.rightRes = 134678021;
+    pr.leftRes = 16843009; pr.rightRes = 33686018;
     DirectTransporterPart f = new TestDirectTransporterPart(null, 0, (byte) 1);
     DirectTransporterPart s = new TestDirectTransporterPart(null, 0, (byte) 1);
     Splitter spl = new TestSplitter(pr, f, s);
         
-    for (int i = 0; i < 8 * 4; i++) {
+    for (int i = 0; i < 8 * 8; i++) {
       f.update();
       s.update();
       spl.update();
     }
         
     println("\t splitterTest test:");
-    if (f.state != 34952) throw new RuntimeException("test failed,third.state = " + f.state + ", but must be 34952");
-    else if (s.state != -2004353024) throw new RuntimeException("test failed, third.leftRes = " + s.state + ", but must be -2004353024");
-    else if (f.leftRes != 67305985) throw new RuntimeException("test failed, third.rightRes = " + f.leftRes + ", but must be 67305985"); 
-    else if (f.rightRes != 0) throw new RuntimeException("test failed, third.rightRes = " + f.rightRes + ", but must be 0"); 
-    else if (s.leftRes != 0) throw new RuntimeException("test failed, third.rightRes = " + f.leftRes + ", but must be 0"); 
-    else if (s.rightRes != 134678021) throw new RuntimeException("test failed, third.rightRes = " + f.rightRes + ", but must be 134678021"); 
-    else if (pr.state != 0) throw new RuntimeException("test failed, third.rightRes = " + pr.state + ", but must be 0"); 
+    if (f.state != 8913032) throw new RuntimeException("test failed, f.state = " + f.state + ", but must be 8913032");
+    else if (s.state != 8913032) throw new RuntimeException("test failed, s.state = " + s.state + ", but must be 8913032");
+    else if (f.leftRes != 257) throw new RuntimeException("test failed, f.leftRes = " + f.leftRes + ", but must be 257"); 
+    else if (f.rightRes != 514) throw new RuntimeException("test failed, f.rightRes = " + f.rightRes + ", but must be 514"); 
+    else if (s.leftRes != 257) throw new RuntimeException("test failed, s.leftRes = " + f.leftRes + ", but must be 257"); 
+    else if (s.rightRes != 514) throw new RuntimeException("test failed, s.rightRes = " + f.rightRes + ", but must be 514"); 
+    else if (pr.state != 0) throw new RuntimeException("test failed, pr.state = " + pr.state + ", but must be 0"); 
     else System.out.println(" + test successfull passed"); 
   }
   
