@@ -33,9 +33,12 @@ public class SimpleDrawableTransporterPartFlyweight implements DrawableTransport
     resources.add(new Res(1, "res 1") { public void draw(float x, float y) { rect(x, y, CONSTANTS.MATERIAL_LEN, CONSTANTS.MATERIAL_LEN); }});
     resources.add(new Res(2, "res 2") { public void draw(float x, float y) { ellipse(x + CONSTANTS.MATERIAL_LEN / 2, y + CONSTANTS.MATERIAL_LEN / 2, CONSTANTS.MATERIAL_LEN, CONSTANTS.MATERIAL_LEN); }});
     resources.add(new Res(3, "res 3") { public void draw(float x, float y) { 
-     ellipse(x + CONSTANTS.MATERIAL_LEN / 4, y + CONSTANTS.MATERIAL_LEN / 4, CONSTANTS.MATERIAL_LEN / 2, CONSTANTS.MATERIAL_LEN / 2); 
-     ellipse(x + CONSTANTS.MATERIAL_LEN / 4 + CONSTANTS.MATERIAL_LEN / 2, y + CONSTANTS.MATERIAL_LEN / 4 + CONSTANTS.MATERIAL_LEN / 2, CONSTANTS.MATERIAL_LEN / 2, CONSTANTS.MATERIAL_LEN / 2); }});
-  }
+      ellipse(x + CONSTANTS.MATERIAL_LEN / 4, y + CONSTANTS.MATERIAL_LEN / 4, CONSTANTS.MATERIAL_LEN / 2, CONSTANTS.MATERIAL_LEN / 2); 
+      ellipse(x + CONSTANTS.MATERIAL_LEN / 4 + CONSTANTS.MATERIAL_LEN / 2, y + CONSTANTS.MATERIAL_LEN / 4 + CONSTANTS.MATERIAL_LEN / 2, CONSTANTS.MATERIAL_LEN / 2, CONSTANTS.MATERIAL_LEN / 2); }});
+    resources.add(new Res(4, "res 4") {public void draw(float x, float y) { rect(x, y, CONSTANTS.MATERIAL_LEN, CONSTANTS.MATERIAL_LEN); 
+      ellipse(x + CONSTANTS.MATERIAL_LEN / 2, y + CONSTANTS.MATERIAL_LEN / 2, CONSTANTS.MATERIAL_LEN / 2, CONSTANTS.MATERIAL_LEN / 2);} }); 
+    resources.add(new Res(5, "res 5") {public void draw(float x, float y) { rect(x + CONSTANTS.MATERIAL_LEN / 8, y, CONSTANTS.MATERIAL_LEN * 3 / 4, CONSTANTS.MATERIAL_LEN);} });
+}
   
   
   public void draw(float x, float y, int resType) {
