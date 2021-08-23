@@ -52,7 +52,7 @@ class RemovableFirstItemsRightFirst implements Removable {
        tp.removeFirstLeftRes();
        return res;
      } 
-     throw new RuntimeException("Cann't remove items cause neither hasLeftFirstItem neither hasRightFirstItem is true");
+     throw new RuntimeException("Cann't peek items cause neither hasLeftFirstItem neither hasRightFirstItem is true");
    }
   
 }

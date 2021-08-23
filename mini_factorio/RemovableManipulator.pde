@@ -29,7 +29,7 @@ class RemovableManipulatorDirectLeftFirst implements Removable {
     } else if ((dtp.state & 134217728) == 134217728) {
        int res = (dtp.rightRes & 16711680) >> 16;
        dtp.state = dtp.state & ~251658240;
-       dtp.rightRes = (dtp.rightRes & ~65280);
+       dtp.rightRes = (dtp.rightRes & ~16711680);
        return res;
     }
     throw new RuntimeException("Can't remove item");
@@ -57,7 +57,7 @@ class RemovableManipulatorDirectRightFirst implements Removable {
     } else if ((dtp.state & 134217728) == 134217728) {
        int res = (dtp.rightRes & 16711680) >> 16;
        dtp.state = dtp.state & ~251658240;
-       dtp.rightRes = (dtp.rightRes & ~65280);
+       dtp.rightRes = (dtp.rightRes & ~16711680);
        return res;
     } else if ((dtp.state & 128) == 128) {
        int res = (dtp.leftRes & 65280) >> 8;

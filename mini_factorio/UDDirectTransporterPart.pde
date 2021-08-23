@@ -9,7 +9,7 @@ class UDDirectTransporterPart extends DirectTransporterPart {
   
   void drawCurrentItems() {
     
-    // right
+    // left
     if ((state & 8) == 8) {
       temp = (state & 7);
       df.draw(posX + CONSTANTS.BLOCK_LEN / 2, posY + CONSTANTS.MATERIAL_LEN * 3 + CONSTANTS.DELTA * temp, (this.leftRes & 255));
@@ -30,7 +30,7 @@ class UDDirectTransporterPart extends DirectTransporterPart {
       df.draw(posX + CONSTANTS.BLOCK_LEN / 2, posY + CONSTANTS.DELTA * temp, (this.leftRes & -16777216) >> 24);
     } 
     
-    //left
+    //right
     if ((state & 524288) == 524288) {
       temp = (state & 458752) >> 16;
       df.draw(posX + CONSTANTS.MATERIAL_LEN, posY + CONSTANTS.MATERIAL_LEN * 3 + CONSTANTS.DELTA * temp, (this.rightRes & 255));

@@ -84,9 +84,9 @@ class LeftToRightDirectTransporterDemo implements DemoFragment {
   }
   
   void redraw() {
-    part3.drawParts();
-    part3.update();
-    part3.drawItems();
+    part5.drawParts();
+    part5.update();
+    part5.drawItems();
   }
   
 }
