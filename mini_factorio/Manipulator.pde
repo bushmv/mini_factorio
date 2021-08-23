@@ -22,7 +22,7 @@ abstract class Manipulator extends Mediator {
   public void update() {
     switch(state) {
       case WAIT_FOR_GET_ITEM_FROM_SOURCE:
-        if (source.canRemove()) {
+        if (source != null && source.canRemove()) {
           res = source.remove();
           state = ManipulatorState.MOVE_TO_DESTINATION;
         } 
@@ -36,7 +36,7 @@ abstract class Manipulator extends Mediator {
         }
         break;
       case WAIT_FOR_PUT_TO_DESTINATION:
-        if (dest.canInsert()) {
+        if (dest != null && dest.canInsert()) {
           dest.insert(res);
           state = ManipulatorState.MOVE_TO_SOURCE;
         } 
